@@ -25,7 +25,7 @@ app.add_middleware(
     allow_headers=["*"]
 )
 unsplash_access_key=os.getenv("ACCESS_KEY")
-app.mount("/", StaticFiles(directory="static", html=True), name="static")
+app.mount("/", StaticFiles(directory="static/dist", html=True), name="static")
 
 @app.get("/")
 def read_root():
