@@ -9,6 +9,7 @@ import io
 from fastapi.responses import StreamingResponse
 import cv2
 import requests
+from fastapi.staticfiles import StaticFiles
 from ocr import image_want_from_text
 from dotenv import load_dotenv
 
@@ -24,6 +25,7 @@ app.add_middleware(
     allow_headers=["*"]
 )
 unsplash_access_key=os.getenv("ACCESS_KEY")
+app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
 @app.get("/")
 def read_root():
