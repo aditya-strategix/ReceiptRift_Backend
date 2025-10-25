@@ -1,12 +1,22 @@
+import os
+import sys
 import pytesseract
 from PIL import Image
-import os,argparse
 import cv2
 import re
 import numpy as np
 #Tesseract path
 
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+# Use environment override if provided; otherwise only set Windows path.
+TESSERACT_CMD = os.getenv("TESSERACT_CMD")
+if TESSERACT_CMD:
+    pytesseract.pytesseract.tesseract_cmd = TESSERACT_CMD
+else:
+    if sys.platform.startswith("win"):
+        # keep your local Windows path for dev
+        pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+    # else: on Linux (Render) leave default (expects /usr/bin/tesseract)
+
 image_want_from_text=[]
 def ocr_parser(image):
    # # arg parse 
